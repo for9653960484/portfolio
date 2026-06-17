@@ -1,28 +1,29 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+IMAGE="${IMAGE:-ghcr.io/for9653960484/portfolio:latest}"
+CONTAINER="portfolio"
 APP_DIR="/opt/portfolio"
-VENV_DIR="$APP_DIR/.venv"
-SERVICE_NAME="portfolio.service"
-BRANCH="main"
+HOST_PORT=8050
 
-if [[ ! -d "$APP_DIR/.git" ]]; then
-  echo "Directory $APP_DIR is not a git repo. Run setup_server.sh first."
+if [[ ! -f "$APP_DIR/.env" ]]; then
+  echo "Missing $APP_DIR/.env — create it from .env.example before deploy."
   exit 1
 fi
 
-cd "$APP_DIR"
-git fetch origin "$BRANCH"
-git reset --hard "origin/$BRANCH"
+mkdir -p "$APP_DIR"
 
-if [[ ! -d "$VENV_DIR" ]]; then
-  python3 -m venv "$VENV_DIR"
-fi
+docker pull "$IMAGE"
 
-source "$VENV_DIR/bin/activate"
-pip install --upgrade pip
-pip install -r requirements.txt
+docker stop "$CONTAINER" 2>/dev/null || true
+docker rm "$CONTAINER" 2>/dev/null || true
 
-sudo systemctl daemon-reload
-sudo systemctl restart "$SERVICE_NAME"
-sudo systemctl status "$SERVICE_NAME" --no-pager
+docker run -d \
+  --name "$CONTAINER" \
+  --restart unless-stopped \
+  -p "${HOST_PORT}:8050" \
+  --env-file "$APP_DIR/.env" \
+  "$IMAGE"
+
+docker image prune -f
+docker ps --filter "name=$CONTAINER"
