@@ -15,6 +15,8 @@ mkdir -p "$APP_DIR"
 
 docker pull "$IMAGE"
 
+sudo systemctl stop portfolio.service 2>/dev/null || true
+sudo systemctl disable portfolio.service 2>/dev/null || true
 docker stop "$CONTAINER" 2>/dev/null || true
 docker rm "$CONTAINER" 2>/dev/null || true
 

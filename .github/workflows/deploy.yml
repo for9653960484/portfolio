@@ -81,6 +81,9 @@ jobs:
 
             docker pull "$IMAGE"
 
+            # Освободить порт 8050: старый systemd-сервис или чужой контейнер
+            sudo systemctl stop portfolio.service 2>/dev/null || true
+            sudo systemctl disable portfolio.service 2>/dev/null || true
             docker stop "$CONTAINER" 2>/dev/null || true
             docker rm "$CONTAINER" 2>/dev/null || true
 
