@@ -1,0 +1,119 @@
+{
+  "author": {
+    "name": "Ябелов Александр",
+    "role": "Fullstack Developer",
+    "tagline": "промпт-инжиниринг\nи код-генерация",
+    "subtitle": "Автоматизация рутинных операций, AI-интеграции, чат-боты, развитие баз данных и аналитической среды для бизнеса",
+    "telegram": "@yabelov76",
+    "email": "for9653960484@gmail.com",
+    "github": "github.com/for9653960484"
+  },
+  "skills": [
+    {
+      "category": "Backend и архитектура",
+      "items": ["Python", "FastAPI", "Django", "Flask", "JavaScript"]
+    },
+    
+    {
+      "category": "AI и данные",
+      "items": ["OpenAI API", "ChromaDB", "PostgreSQL", "LLM & NLP", "Промпт-инжиниринг"]
+    },
+    {
+      "category": "Боты и интеграции",
+      "items": ["aiogram 3", "Telegram Bot API", "REST API"]
+    }
+    
+  ],
+  "projects": [
+    {
+      "id": 1,
+      "title": "Мудрый филин",
+      "description": "Telegram-бот для сопровождения повседневных запросов. Твой персональный советник, секретарь, бизнес-ассистент.",
+      "tools": ["aiogram 3.x", "OpenAI", "ChromaDB"],
+      "year": "2025",
+      "link": "https://github.com/for9653960484/owl_memory_bot",
+      "image": null
+    },
+    {
+      "id": 2,
+      "title": "GOVORUN",
+      "description": "AI-секретарь и советник с модульной архитектурой.",
+      "tools": ["FastAPI", "Python"],
+      "year": "2026",
+      "link": "https://github.com/for9653960484/govorun_ai_assist.git",
+      "image": null
+    },
+    {
+      "id": 3,
+      "title": "Cursor Themes",
+      "description": "Кастомные темы для VS Code и Cursor. 50K+ загрузок. Тщательная настройка семантических токенов.",
+      "tools": ["VS Code", "JSON"],
+      "year": "2024",
+      "link": "https://github.com",
+      "image": null
+    },
+    {
+      "id": 4,
+      "title": "Lo-fi Timer",
+      "description": "Pomodoro-таймер с lo-fi музыкой и дождём. Минималистичный интерфейс, фокус на продуктивности.",
+      "tools": ["Web Audio", "CSS", "Vanilla JS"],
+      "year": "2024",
+      "link": "https://github.com",
+      "image": null
+    },
+    {
+      "id": 5,
+      "title": "AI Prompt Library",
+      "description": "Хранилище промптов для работы с Claude/GPT. Поиск, теги, экспорт.",
+      "tools": ["Next.js", "Markdown", "JSON"],
+      "year": "2024",
+      "link": "https://github.com",
+      "image": null
+    },
+    {
+      "id": 6,
+      "title": "Spotify Wrapped Clone",
+      "description": "Аналог Spotify Wrapped для Last.fm. Генерация красивого отчёта за год прослушиваний.",
+      "tools": ["Last.fm API", "Chart.js", "Node.js"],
+      "year": "2023",
+      "link": "https://github.com",
+      "image": null
+    },
+    {
+      "id": 7,
+      "title": "Terminal Portfolio",
+      "description": "Портфолио в виде интерактивного терминала. Команды, autocomplete, retro-эстетика.",
+      "tools": ["Vue", "CSS"],
+      "year": "2023",
+      "link": "https://github.com",
+      "image": null
+    },
+    {
+      "id": 8,
+      "title": "Git Heatmap",
+      "description": "Визуализация активности в репозитории. Heatmap по дням, статистика коммитов, красивый UI.",
+      "tools": ["Git", "Python", "D3.js"],
+      "year": "2023",
+      "link": "https://github.com",
+      "image": null
+    },
+    {
+      "id": 9,
+      "title": "Glassmorphism UI Kit",
+      "description": "Набор UI-компонентов в стиле glassmorphism. Кнопки, карточки, модалки с blur-эффектами.",
+      "tools": ["CSS", "Web Components"],
+      "year": "2023",
+      "link": "https://github.com",
+      "image": null
+    },
+    {
+      "id": 10,
+      "title": "Dev.to Clone",
+      "description": "Упрощённый клон Dev.to. CRUD постов, комментарии, markdown-редактор.",
+      "tools": ["Django", "Vue", "REST API"],
+      "year": "2023",
+      "link": "https://github.com",
+      "image": null
+    }
+  ]
+}
