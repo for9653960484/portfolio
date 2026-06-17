@@ -97,38 +97,6 @@ python -m bot.main
 - `GET /` — главная страница
 - `GET /api/projects` — JSON с проектами (для внешних клиентов или бота)
 
-## Автодеплой на сервер 95.163.223.66:8050
-
-### 1) Одноразовая подготовка сервера
-
-Подключитесь по SSH к серверу и выполните:
-
-```bash
-git clone https://github.com/for9653960484/portfolio.git
-cd portfolio
-chmod +x scripts/setup_server.sh
-bash scripts/setup_server.sh
-```
-
-Сервис будет поднят на `http://95.163.223.66:8050`.
-
-### 2) Настройка GitHub Secrets
-
-В репозитории GitHub добавьте секреты:
-
-- `DEPLOY_HOST` = `95.163.223.66`
-- `DEPLOY_USER` = пользователь SSH на сервере
-- `DEPLOY_SSH_KEY` = приватный ключ (в формате PEM) для доступа по SSH
-
-После этого каждый `push` в `main` запускает workflow `.github/workflows/deploy.yml` и обновляет сервер автоматически.
-
-### 3) Проверка сервиса на сервере
-
-```bash
-sudo systemctl status portfolio.service
-journalctl -u portfolio.service -n 100 --no-pager
-```
-
 ## Технологии
 
 - **Сайт:** Flask, HTML, CSS, JS (без фреймворков)
