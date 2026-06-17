@@ -4,6 +4,7 @@ Apple-style resume site with shared projects.json
 """
 
 import json
+import os
 from pathlib import Path
 
 from flask import Flask, render_template, jsonify
@@ -39,4 +40,7 @@ def api_projects():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5000)
+    debug = os.getenv("FLASK_DEBUG", "false").lower() == "true"
+    host = os.getenv("HOST", "127.0.0.1")
+    port = int(os.getenv("PORT", "5000"))
+    app.run(debug=debug, host=host, port=port)
