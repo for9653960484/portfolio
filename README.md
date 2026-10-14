@@ -69,16 +69,6 @@ python -m bot.main
     "email": "email@example.com",
     "github": "github.com/username"
   },
-  "skills": [
-    {
-      "category": "Backend",
-      "items": ["Python", "FastAPI", "Django"]
-    },
-    {
-      "category": "Frontend",
-      "items": ["HTML/CSS", "JavaScript", "React"]
-    }
-  ],
   "projects": [
     {
       "id": 1,

@@ -49,4 +49,112 @@ document.addEventListener("DOMContentLoaded", () => {
     updateHeaderBg();
   }
 
+  document.querySelectorAll(".card-shot-wrap").forEach((shot) => {
+    const input = shot.querySelector(".card-shot-input");
+    const removeButton = shot.querySelector(".card-shot-remove");
+    if (!input) return;
+
+    input.addEventListener("change", () => {
+      const file = input.files && input.files[0];
+      input.value = "";
+      if (!file) return;
+      uploadShot(shot, file);
+    });
+
+    removeButton?.addEventListener("click", () => {
+      deleteShot(shot);
+    });
+  });
 });
+
+function shotFrame(shot) {
+  return shot.querySelector(".card-shot") || shot;
+}
+
+function shotContext(shot) {
+  const card = shot.closest("[data-project-id]");
+  return {
+    card,
+    projectId: card?.dataset.projectId,
+    slot: shot.dataset.slot,
+    status: card?.querySelector(".card-upload-status"),
+  };
+}
+
+function setShotStatus(status, message) {
+  if (!status) return;
+  status.hidden = !message;
+  status.textContent = message || "";
+}
+
+async function uploadShot(shot, file) {
+  const { projectId, slot, status } = shotContext(shot);
+  const form = new FormData();
+  form.append("file", file);
+  const frame = shotFrame(shot);
+  frame.classList.add("is-uploading");
+  setShotStatus(status, "");
+
+  try {
+    const response = await fetch(`/api/projects/${projectId}/images/${slot}`, {
+      method: "POST",
+      body: form,
+    });
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) {
+      throw new Error(data.error || "Не удалось загрузить изображение");
+    }
+    showShotImage(shot, `${data.url}?t=${Date.now()}`);
+  } catch (error) {
+    setShotStatus(status, error.message);
+  } finally {
+    frame.classList.remove("is-uploading");
+  }
+}
+
+async function deleteShot(shot) {
+  const { projectId, slot, status } = shotContext(shot);
+  const frame = shotFrame(shot);
+  frame.classList.add("is-uploading");
+  setShotStatus(status, "");
+
+  try {
+    const response = await fetch(`/api/projects/${projectId}/images/${slot}`, {
+      method: "DELETE",
+    });
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) {
+      throw new Error(data.error || "Не удалось удалить изображение");
+    }
+    clearShotImage(shot);
+  } catch (error) {
+    setShotStatus(status, error.message);
+  } finally {
+    frame.classList.remove("is-uploading");
+  }
+}
+
+function showShotImage(shot, url) {
+  const frame = shotFrame(shot);
+  frame.querySelector(".card-shot-empty")?.remove();
+  let image = frame.querySelector("img");
+  if (!image) {
+    image = document.createElement("img");
+    image.alt = "";
+    frame.prepend(image);
+  }
+  image.src = url;
+  frame.classList.add("has-image");
+}
+
+function clearShotImage(shot) {
+  const frame = shotFrame(shot);
+  frame.querySelector("img")?.remove();
+  frame.classList.remove("has-image");
+  if (frame.querySelector(".card-shot-empty")) return;
+
+  const empty = document.createElement("div");
+  empty.className = "card-shot-empty";
+  empty.innerHTML = '<span class="card-shot-plus" aria-hidden="true">+</span><span class="card-shot-hint">Загрузить</span>';
+  frame.prepend(empty);
+}

@@ -8,20 +8,6 @@
     "email": "for9653960484@gmail.com",
     "github": "github.com/for9653960484"
   },
-  "skills": [
-    {
-      "category": "Backend и архитектура",
-      "items": ["Python", "FastAPI", "Django", "Flask", "JavaScript"]
-    },
-    {
-      "category": "AI и данные",
-      "items": ["OpenAI API", "ChromaDB", "PostgreSQL", "LLM & NLP", "Промпт-инжиниринг"]
-    },
-    {
-      "category": "Боты и интеграции",
-      "items": ["aiogram 3", "Telegram Bot API", "REST API"]
-    }
-  ],
   "projects": [
     {
       "id": 1,
@@ -30,7 +16,7 @@
       "tools": ["aiogram 3.x", "OpenAI", "ChromaDB"],
       "year": "2025",
       "link": "https://github.com/for9653960484/owl_memory_bot",
-      "image": null
+      "images": [null, null, null]
     },
     {
       "id": 2,
@@ -39,7 +25,7 @@
       "tools": ["FastAPI", "Python"],
       "year": "2026",
       "link": "https://github.com/for9653960484/govorun_ai_assist",
-      "image": null
+      "images": [null, null, null]
     },
     {
       "id": 3,
@@ -48,16 +34,16 @@
       "tools": ["PostgreSQL", "Flask API"],
       "year": "2026",
       "link": "https://github.com/for9653960484/vmeste",
-      "image": null
+      "images": [null, null, null]
     },
     {
       "id": 4,
       "title": "Terminal Portfolio",
       "description": "Портфолио в виде интерактивного терминала. Команды, autocomplete.",
-      "tools": ["Flask", "HTML", "JSON"],
+      "tools": ["Flask", "HTML", "JSON", "aiogram 3.x"],
       "year": "2026",
       "link": "https://github.com/for9653960484/portfolio",
-      "image": null
+      "images": [null, null, null]
     }
   ]
 }

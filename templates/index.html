@@ -20,7 +20,6 @@
                         <span class="theme-toggle-icon theme-toggle-icon--moon" aria-hidden="true">🌙</span>
                     </button>
                 </li>
-                <li><a href="#skills">Навыки</a></li>
                 <li><a href="#projects">Проекты</a></li>
                 <li><a href="#contact">Контакты</a></li>
             </ul>
@@ -40,30 +39,20 @@
             </div>
         </section>
 
-        <section id="skills" class="skills">
-            <h2 class="section-title">Навыки</h2>
-            <div class="skills-grid">
-                {% for group in skills %}
-                <div class="skills-group">
-                    <h3 class="skills-group-title">{{ group.category }}</h3>
-                    <ul class="skills-list">
-                        {% for item in group["items"] %}
-                        <li class="skill-item">{{ item }}</li>
-                        {% endfor %}
-                    </ul>
-                </div>
-                {% endfor %}
-            </div>
-        </section>
-
         <section id="projects" class="projects">
             <h2 class="section-title">Проекты</h2>
-            <div class="projects-grid">
+            <div class="projects-stack">
                 {% for project in projects %}
                 <article class="card" data-project-id="{{ project.id }}">
                     <div class="card-content">
                         <span class="card-year">{{ project.year }}</span>
-                        <h3 class="card-title">{{ project.title }}</h3>
+                        <h3 class="card-title">
+                            {% if project.link %}
+                            <a href="{{ project.link }}" target="_blank" rel="noopener">{{ project.title }}</a>
+                            {% else %}
+                            {{ project.title }}
+                            {% endif %}
+                        </h3>
                         <p class="card-desc">{{ project.description }}</p>
                         {% if project.tools %}
                         <div class="card-tools">
@@ -71,11 +60,37 @@
                             <span class="card-tools-list">{{ project.tools | join(' · ') }}</span>
                         </div>
                         {% endif %}
-                        {% if project.link %}
-                        <a href="{{ project.link }}" target="_blank" rel="noopener" class="card-link">
-                            Посмотреть →
-                        </a>
-                        {% endif %}
+                        <p class="card-upload-status" hidden></p>
+                    </div>
+                    <div class="card-gallery" aria-label="Иллюстрации: {{ project.title }}">
+                        {% for src in project.images %}
+                        <div class="card-shot-wrap" data-slot="{{ loop.index0 }}">
+                            {% if can_upload %}
+                            <label class="card-shot{% if src %} has-image{% endif %} card-shot--editable">
+                            {% else %}
+                            <div class="card-shot{% if src %} has-image{% endif %}">
+                            {% endif %}
+                                {% if src %}
+                                <img src="{{ url_for('static', filename=src) }}" alt="{{ project.title }}, иллюстрация {{ loop.index }}">
+                                {% else %}
+                                <div class="card-shot-empty">
+                                    {% if can_upload %}
+                                    <span class="card-shot-plus" aria-hidden="true">+</span>
+                                    <span class="card-shot-hint">Загрузить</span>
+                                    {% endif %}
+                                </div>
+                                {% endif %}
+                                {% if can_upload %}
+                                <input class="card-shot-input" type="file" accept="image/jpeg,image/png,image/webp,image/gif" aria-label="Загрузить иллюстрацию {{ loop.index }} для {{ project.title }}">
+                                {% endif %}
+                            {% if can_upload %}
+                            </label>
+                            <button type="button" class="card-shot-remove" aria-label="Удалить иллюстрацию {{ loop.index }}">×</button>
+                            {% else %}
+                            </div>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
                     </div>
                 </article>
                 {% endfor %}
