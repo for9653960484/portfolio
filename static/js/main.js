@@ -49,6 +49,39 @@ document.addEventListener("DOMContentLoaded", () => {
     updateHeaderBg();
   }
 
+  document.querySelectorAll(".card-media--carousel").forEach((media) => {
+    const slides = [...media.querySelectorAll(".card-shot-wrap")];
+    const indexLabel = media.querySelector(".carousel-index");
+    if (!slides.length) return;
+    let index = Math.max(0, slides.findIndex((slide) => slide.classList.contains("is-active")));
+
+    const show = (next) => {
+      index = (next + slides.length) % slides.length;
+      slides.forEach((slide, slideIndex) => {
+        slide.classList.toggle("is-active", slideIndex === index);
+      });
+      if (indexLabel) indexLabel.textContent = String(index + 1);
+    };
+
+    media.querySelector(".carousel-prev")?.addEventListener("click", () => show(index - 1));
+    media.querySelector(".carousel-next")?.addEventListener("click", () => show(index + 1));
+
+    let touchStartX = 0;
+    let touchStartY = 0;
+    media.addEventListener("touchstart", (event) => {
+      const touch = event.changedTouches[0];
+      touchStartX = touch.clientX;
+      touchStartY = touch.clientY;
+    }, { passive: true });
+    media.addEventListener("touchend", (event) => {
+      const touch = event.changedTouches[0];
+      const deltaX = touch.clientX - touchStartX;
+      const deltaY = touch.clientY - touchStartY;
+      if (Math.abs(deltaX) < 40 || Math.abs(deltaX) < Math.abs(deltaY)) return;
+      show(index + (deltaX < 0 ? 1 : -1));
+    }, { passive: true });
+  });
+
   document.querySelectorAll(".card-shot-wrap").forEach((shot) => {
     const input = shot.querySelector(".card-shot-input");
     const removeButton = shot.querySelector(".card-shot-remove");
@@ -61,9 +94,44 @@ document.addEventListener("DOMContentLoaded", () => {
       uploadShot(shot, file);
     });
 
+    shot.querySelector(".card-shot")?.addEventListener("click", (event) => {
+      if (event.target.closest(".card-shot-remove, .card-shot-zoom, .card-shot-input, .card-shot-upload")) return;
+      const frame = shot.querySelector(".card-shot");
+      if (frame?.classList.contains("has-image")) return;
+      input.click();
+    });
+
     removeButton?.addEventListener("click", () => {
       deleteShot(shot);
     });
+  });
+
+  const lightbox = document.getElementById("lightbox");
+  const lightboxImage = lightbox?.querySelector(".lightbox-image");
+
+  document.addEventListener("click", (event) => {
+    const zoom = event.target.closest(".card-shot-zoom");
+    if (!zoom || !lightbox || !lightboxImage) return;
+    const image = zoom.querySelector("img");
+    if (!image?.src) return;
+    lightboxImage.src = image.currentSrc || image.src;
+    lightboxImage.alt = image.alt || "";
+    lightbox.showModal();
+  });
+
+  lightbox?.querySelector(".lightbox-close")?.addEventListener("click", () => {
+    lightbox.close();
+  });
+
+  lightbox?.addEventListener("click", (event) => {
+    if (event.target === lightbox) lightbox.close();
+  });
+
+  lightbox?.addEventListener("close", () => {
+    if (lightboxImage) {
+      lightboxImage.removeAttribute("src");
+      lightboxImage.alt = "";
+    }
   });
 });
 
@@ -137,11 +205,19 @@ async function deleteShot(shot) {
 function showShotImage(shot, url) {
   const frame = shotFrame(shot);
   frame.querySelector(".card-shot-empty")?.remove();
-  let image = frame.querySelector("img");
+  let zoom = frame.querySelector(".card-shot-zoom");
+  if (!zoom) {
+    zoom = document.createElement("button");
+    zoom.type = "button";
+    zoom.className = "card-shot-zoom";
+    zoom.setAttribute("aria-label", "Увеличить иллюстрацию");
+    frame.prepend(zoom);
+  }
+  let image = zoom.querySelector("img");
   if (!image) {
     image = document.createElement("img");
     image.alt = "";
-    frame.prepend(image);
+    zoom.append(image);
   }
   image.src = url;
   frame.classList.add("has-image");
@@ -149,7 +225,7 @@ function showShotImage(shot, url) {
 
 function clearShotImage(shot) {
   const frame = shotFrame(shot);
-  frame.querySelector("img")?.remove();
+  frame.querySelector(".card-shot-zoom")?.remove();
   frame.classList.remove("has-image");
   if (frame.querySelector(".card-shot-empty")) return;
 

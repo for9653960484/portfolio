@@ -34,7 +34,7 @@
       "tools": ["PostgreSQL", "Flask API"],
       "year": "2026",
       "link": "https://github.com/for9653960484/vmeste",
-      "images": [null, null, null]
+      "images": ["uploads/p4-s0.png", "uploads/p4-s1.png", "uploads/p4-s2.png"]
     },
     {
       "id": 3,

@@ -62,35 +62,34 @@
                         {% endif %}
                         <p class="card-upload-status" hidden></p>
                     </div>
+                    <div class="card-media card-media--carousel">
+                        <button type="button" class="carousel-nav carousel-prev" aria-label="Предыдущее изображение">‹</button>
                     <div class="card-gallery" aria-label="Иллюстрации: {{ project.title }}">
                         {% for src in project.images %}
-                        <div class="card-shot-wrap" data-slot="{{ loop.index0 }}">
-                            {% if can_upload %}
-                            <label class="card-shot{% if src %} has-image{% endif %} card-shot--editable">
-                            {% else %}
-                            <div class="card-shot{% if src %} has-image{% endif %}">
-                            {% endif %}
+                        <div class="card-shot-wrap{% if loop.first %} is-active{% endif %}" data-slot="{{ loop.index0 }}">
+                            <div class="card-shot{% if src %} has-image{% endif %}{% if can_upload %} card-shot--editable{% endif %}">
                                 {% if src %}
-                                <img src="{{ url_for('static', filename=src) }}" alt="{{ project.title }}, иллюстрация {{ loop.index }}">
-                                {% else %}
+                                <button type="button" class="card-shot-zoom" aria-label="Увеличить иллюстрацию {{ loop.index }}: {{ project.title }}">
+                                    <img src="{{ url_for('static', filename=src) }}" alt="{{ project.title }}, иллюстрация {{ loop.index }}">
+                                </button>
+                                {% elif can_upload %}
                                 <div class="card-shot-empty">
-                                    {% if can_upload %}
                                     <span class="card-shot-plus" aria-hidden="true">+</span>
                                     <span class="card-shot-hint">Загрузить</span>
-                                    {% endif %}
                                 </div>
                                 {% endif %}
                                 {% if can_upload %}
-                                <input class="card-shot-input" type="file" accept="image/jpeg,image/png,image/webp,image/gif" aria-label="Загрузить иллюстрацию {{ loop.index }} для {{ project.title }}">
+                                <label class="card-shot-upload">
+                                    <input class="card-shot-input" type="file" accept="image/jpeg,image/png,image/webp,image/gif" aria-label="Загрузить иллюстрацию {{ loop.index }} для {{ project.title }}">
+                                </label>
+                                <button type="button" class="card-shot-remove" aria-label="Удалить иллюстрацию {{ loop.index }}">×</button>
                                 {% endif %}
-                            {% if can_upload %}
-                            </label>
-                            <button type="button" class="card-shot-remove" aria-label="Удалить иллюстрацию {{ loop.index }}">×</button>
-                            {% else %}
                             </div>
-                            {% endif %}
                         </div>
                         {% endfor %}
+                    </div>
+                        <button type="button" class="carousel-nav carousel-next" aria-label="Следующее изображение">›</button>
+                        <p class="carousel-count" aria-live="polite"><span class="carousel-index">1</span> / {{ project.images|length }}</p>
                     </div>
                 </article>
                 {% endfor %}
@@ -122,6 +121,11 @@
     <footer class="footer">
         <p>Развитие процессов. Развитие людей.</p>
     </footer>
+
+    <dialog class="lightbox" id="lightbox" aria-label="Увеличенная иллюстрация">
+        <button type="button" class="lightbox-close" aria-label="Закрыть">×</button>
+        <img class="lightbox-image" alt="">
+    </dialog>
 
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>

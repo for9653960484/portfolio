@@ -284,7 +284,7 @@ section {
 
 /* Projects — one wide card per row */
 .projects {
-  padding-top: var(--space-3xl);
+  padding-top: calc(var(--space-3xl) / 2);
 }
 
 .projects-stack {
@@ -337,6 +337,75 @@ section {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0.75rem;
   width: 100%;
+}
+
+.card-media--carousel {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-rows: auto auto;
+  align-items: center;
+  column-gap: 0.45rem;
+  row-gap: 0.45rem;
+  width: min(100%, 28rem);
+  margin-left: auto;
+}
+
+.card-media--carousel .card-gallery {
+  grid-column: 2;
+  grid-row: 1;
+  grid-template-columns: 1fr;
+}
+
+.card-media--carousel .carousel-prev {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.card-media--carousel .carousel-next {
+  grid-column: 3;
+  grid-row: 1;
+}
+
+.card-media--carousel .carousel-count {
+  grid-column: 1 / -1;
+  grid-row: 2;
+}
+
+.card-media--carousel .card-shot-wrap {
+  display: none;
+}
+
+.card-media--carousel .card-shot-wrap.is-active {
+  display: block;
+}
+
+.carousel-nav {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border: 1px solid var(--color-shot-border);
+  border-radius: 50%;
+  background: var(--color-bg-card);
+  color: var(--color-text);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.carousel-nav:hover,
+.carousel-nav:focus-visible {
+  border-color: var(--color-text);
+  outline: none;
+}
+
+.carousel-count {
+  margin: 0;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--color-tools);
 }
 
 .card-shot-wrap {
@@ -397,24 +466,106 @@ section {
   outline: none;
 }
 
-.card-shot--editable.has-image::after {
-  content: "Заменить";
-  position: absolute;
+.card-shot--editable.has-image .card-shot-upload {
   left: 0;
   right: 0;
   bottom: 0;
-  padding: 0.35rem 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 1.7rem;
   background: rgba(0, 0, 0, 0.55);
   color: #fff;
   font-size: 0.72rem;
-  text-align: center;
   opacity: 0;
   transition: opacity var(--transition);
 }
 
-.card-shot--editable.has-image:hover::after,
-.card-shot--editable.has-image:focus-visible::after {
+.card-shot--editable.has-image .card-shot-upload::before {
+  content: "Заменить";
+}
+
+.card-shot--editable.has-image:hover .card-shot-upload,
+.card-shot--editable.has-image:focus-within .card-shot-upload {
   opacity: 1;
+}
+
+.card-shot-zoom {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+}
+
+.card-shot-upload {
+  position: absolute;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.card-shot--editable:not(.has-image) .card-shot-upload {
+  position: absolute;
+  inset: 0;
+}
+
+.card-shot--editable.has-image .card-shot-upload {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1.7rem;
+}
+
+.lightbox {
+  width: min(1280px, calc(100vw - 1.5rem), calc((100vh - 2.5rem) * 1.6));
+  height: auto;
+  aspect-ratio: 8 / 5;
+  max-width: calc(100vw - 1.5rem);
+  max-height: calc(100vh - 2.5rem);
+  margin: auto;
+  padding: 0;
+  border: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #111113;
+}
+
+.lightbox::backdrop {
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.lightbox-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #111113;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  z-index: 1;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.16);
+  color: #fff;
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.lightbox-close:hover,
+.lightbox-close:focus-visible {
+  background: rgba(255, 255, 255, 0.28);
 }
 
 .card-shot-input {
@@ -432,7 +583,7 @@ section {
   position: absolute;
   top: 0.4rem;
   right: 0.4rem;
-  z-index: 1;
+  z-index: 3;
   width: 1.5rem;
   height: 1.5rem;
   border: none;
@@ -586,8 +737,10 @@ section {
     padding: 0.85rem 1rem;
   }
 
-  .card-gallery {
-    max-width: 520px;
+  .card-media--carousel {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
   }
 }
 
