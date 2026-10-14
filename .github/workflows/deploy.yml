@@ -76,8 +76,11 @@ jobs:
 
             mkdir -p "$APP_DIR"
 
-            echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io \
-              -u "${{ secrets.GHCR_USERNAME }}" --password-stdin
+            # Тот же GITHUB_TOKEN, что пушит образ: у него есть packages:write.
+            # Отдельный GHCR_TOKEN на сервере часто без read:packages, и реестр отвечает denied.
+            docker logout ghcr.io >/dev/null 2>&1 || true
+            echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io \
+              -u "${{ github.repository_owner }}" --password-stdin
 
             docker pull "$IMAGE"
 
