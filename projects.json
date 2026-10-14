@@ -19,25 +19,16 @@
       "images": [null, null, null]
     },
     {
-      "id": 1,
-      "title": "Мудрый филин",
-      "description": "Telegram-бот для сопровождения повседневных запросов. Твой персональный советник, секретарь, бизнес-ассистент.",
-      "tools": ["aiogram 3.x", "OpenAI", "ChromaDB"],
-      "year": "2025",
-      "link": "https://github.com/for9653960484/owl_memory_bot",
-      "images": [null, null, null]
-    },
-    {
       "id": 2,
-      "title": "GOVORUN",
-      "description": "AI-секретарь и советник с модульной архитектурой.",
-      "tools": ["FastAPI", "Python"],
+      "title": "Terminal Portfolio",
+      "description": "Портфолио в виде интерактивного терминала. Команды, autocomplete.",
+      "tools": ["Flask", "HTML", "JSON", "aiogram 3.x"],
       "year": "2026",
-      "link": "https://github.com/for9653960484/govorun_ai_assist",
+      "link": "https://github.com/for9653960484/portfolio",
       "images": [null, null, null]
     },
     {
-      "id": 3,
+      "id": 4,
       "title": "Мини-CRM для маркетинга",
       "description": "Мини-CRM для маркетинга и продаж: сбор лидов с лендингов и соц.сетей, автоматизация mail-коммуникаций, система чат-ботов и аналитики",
       "tools": ["PostgreSQL", "Flask API"],
@@ -46,12 +37,21 @@
       "images": [null, null, null]
     },
     {
-      "id": 4,
-      "title": "Terminal Portfolio",
-      "description": "Портфолио в виде интерактивного терминала. Команды, autocomplete.",
-      "tools": ["Flask", "HTML", "JSON", "aiogram 3.x"],
+      "id": 3,
+      "title": "GOVORUN",
+      "description": "AI-секретарь и советник с модульной архитектурой.",
+      "tools": ["FastAPI", "Python"],
       "year": "2026",
-      "link": "https://github.com/for9653960484/portfolio",
+      "link": "https://github.com/for9653960484/govorun_ai_assist",
+      "images": [null, null, null]
+    },
+    {
+      "id": 1,
+      "title": "Мудрый филин",
+      "description": "Telegram-бот для сопровождения повседневных запросов. Твой персональный советник, секретарь, бизнес-ассистент.",
+      "tools": ["aiogram 3.x", "OpenAI", "ChromaDB"],
+      "year": "2025",
+      "link": "https://github.com/for9653960484/owl_memory_bot",
       "images": [null, null, null]
     }
   ]

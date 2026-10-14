@@ -90,12 +90,13 @@ def upload_file_path(relative):
 def index():
     """Main portfolio page."""
     data = load_projects()
-    for project in data["projects"]:
+    projects = sorted(data["projects"], key=lambda project: project.get("id") or 0, reverse=True)
+    for project in projects:
         ensure_images(project)
     return render_template(
         "index.html",
         author=data["author"],
-        projects=data["projects"],
+        projects=projects,
         can_upload=can_upload(),
     )
 
