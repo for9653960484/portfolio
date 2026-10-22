@@ -64,11 +64,19 @@ function applyLanguage(lang) {
   if (!LANGS.includes(lang)) lang = "ru";
   localStorage.setItem(LANG_KEY, lang);
   document.documentElement.lang = lang;
-  document.documentElement.style.setProperty("--label-replace", `"${uiText(lang, "upload.replace")}"`);
+  const replaceLabel = uiText(lang, "upload.replace");
+  if (replaceLabel) {
+    document.documentElement.style.setProperty("--label-replace", `"${replaceLabel}"`);
+  }
 
   document.querySelectorAll("[data-i18n]").forEach((el) => {
     const key = el.dataset.i18n;
-    el.textContent = key.startsWith("author.") ? authorText(el, lang) : uiText(lang, key);
+    if (key.startsWith("author.")) {
+      el.textContent = authorText(el, lang);
+      return;
+    }
+    const text = uiText(lang, key);
+    if (text) el.textContent = text;
   });
 
   document.querySelectorAll(".card").forEach((card) => {
@@ -80,7 +88,9 @@ function applyLanguage(lang) {
 
     card.querySelectorAll("[data-i18n-aria], [data-i18n-alt]").forEach((el) => {
       const key = el.dataset.i18nAria || el.dataset.i18nAlt;
-      const label = formatText(uiText(lang, key), { title: copy.title, n: el.dataset.i18nN || "" });
+      const template = uiText(lang, key);
+      if (!template) return;
+      const label = formatText(template, { title: copy.title, n: el.dataset.i18nN || "" });
       if (el.dataset.i18nAlt) el.alt = label;
       else el.setAttribute("aria-label", label);
     });
@@ -88,7 +98,8 @@ function applyLanguage(lang) {
 
   document.querySelectorAll("[data-i18n-aria]").forEach((el) => {
     if (el.closest(".card")) return;
-    el.setAttribute("aria-label", uiText(lang, el.dataset.i18nAria));
+    const label = uiText(lang, el.dataset.i18nAria);
+    if (label) el.setAttribute("aria-label", label);
   });
 
   document.querySelectorAll(".lang-switch-btn").forEach((button) => {
