@@ -177,7 +177,10 @@ function initPage() {
     };
 
     segments.forEach((segment, segmentIndex) => {
-      segment.addEventListener("click", () => show(segmentIndex));
+      segment.addEventListener("click", () => {
+        show(segmentIndex);
+        queue();
+      });
     });
 
     let touchStartX = 0;
@@ -193,7 +196,17 @@ function initPage() {
       const deltaY = touch.clientY - touchStartY;
       if (Math.abs(deltaX) < 40 || Math.abs(deltaX) < Math.abs(deltaY)) return;
       show(index + (deltaX < 0 ? 1 : -1));
+      queue();
     }, { passive: true });
+
+    const AUTO_MS = 10000;
+    let timer = 0;
+    const queue = () => {
+      window.clearInterval(timer);
+      if (slides.length < 2 || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      timer = window.setInterval(() => show(index + 1), AUTO_MS);
+    };
+    queue();
   });
 
   document.querySelectorAll(".card-shot-wrap").forEach((shot) => {
