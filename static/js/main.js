@@ -159,7 +159,7 @@ function initPage() {
 
   document.querySelectorAll(".card-media--carousel").forEach((media) => {
     const slides = [...media.querySelectorAll(".card-shot-wrap")];
-    const indexLabel = media.querySelector(".carousel-index");
+    const segments = [...media.querySelectorAll(".carousel-segment")];
     if (!slides.length) return;
     let index = Math.max(0, slides.findIndex((slide) => slide.classList.contains("is-active")));
 
@@ -168,11 +168,17 @@ function initPage() {
       slides.forEach((slide, slideIndex) => {
         slide.classList.toggle("is-active", slideIndex === index);
       });
-      if (indexLabel) indexLabel.textContent = String(index + 1);
+      segments.forEach((segment, segmentIndex) => {
+        const active = segmentIndex === index;
+        segment.classList.toggle("is-active", active);
+        if (active) segment.setAttribute("aria-current", "true");
+        else segment.removeAttribute("aria-current");
+      });
     };
 
-    media.querySelector(".carousel-prev")?.addEventListener("click", () => show(index - 1));
-    media.querySelector(".carousel-next")?.addEventListener("click", () => show(index + 1));
+    segments.forEach((segment, segmentIndex) => {
+      segment.addEventListener("click", () => show(segmentIndex));
+    });
 
     let touchStartX = 0;
     let touchStartY = 0;

@@ -70,7 +70,6 @@
                         <p class="card-upload-status" hidden></p>
                     </div>
                     <div class="card-media card-media--carousel">
-                        <button type="button" class="carousel-nav carousel-prev" data-i18n-aria="carousel.prev" aria-label="Предыдущее изображение">‹</button>
                     <div class="card-gallery" data-i18n-aria="shot.gallery" aria-label="Иллюстрации: {{ project.title }}">
                         {% for src in project.images %}
                         <div class="card-shot-wrap{% if loop.first %} is-active{% endif %}" data-slot="{{ loop.index0 }}">
@@ -95,8 +94,11 @@
                         </div>
                         {% endfor %}
                     </div>
-                        <button type="button" class="carousel-nav carousel-next" data-i18n-aria="carousel.next" aria-label="Следующее изображение">›</button>
-                        <p class="carousel-count" aria-live="polite"><span class="carousel-index">1</span> / {{ project.images|length }}</p>
+                        <div class="carousel-bar" role="tablist">
+                            {% for src in project.images %}
+                            <button type="button" class="carousel-segment{% if loop.first %} is-active{% endif %}" aria-label="{{ loop.index }}"{% if loop.first %} aria-current="true"{% endif %}></button>
+                            {% endfor %}
+                        </div>
                     </div>
                 </article>
                 {% endfor %}
@@ -126,7 +128,7 @@
     </main>
 
     <footer class="footer">
-        <p data-i18n="footer">Развитие процессов. Развитие людей.</p>
+        <p data-i18n="footer">Совершенствование процессов. Развитие людей.</p>
     </footer>
 
     <dialog class="lightbox" id="lightbox" data-i18n-aria="lightbox" aria-label="Увеличенная иллюстрация">
