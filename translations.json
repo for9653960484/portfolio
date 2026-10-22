@@ -1,0 +1,133 @@
+{
+  "ru": {
+    "ui": {
+      "nav.projects": "Проекты",
+      "nav.contact": "Контакты",
+      "cta.projects": "Смотреть проекты",
+      "cta.contact": "Связаться",
+      "tools": "Инструменты:",
+      "footer": "Развитие процессов. Развитие людей.",
+      "theme": "Переключить тему",
+      "lang": "Язык",
+      "carousel.prev": "Предыдущее изображение",
+      "carousel.next": "Следующее изображение",
+      "upload.hint": "Загрузить",
+      "upload.replace": "Заменить",
+      "upload.fail": "Не удалось загрузить изображение",
+      "delete.fail": "Не удалось удалить изображение",
+      "lightbox": "Увеличенная иллюстрация",
+      "close": "Закрыть",
+      "shot.gallery": "Иллюстрации: {title}",
+      "shot.zoom": "Увеличить иллюстрацию {n}: {title}",
+      "shot.alt": "{title}, иллюстрация {n}",
+      "shot.upload": "Загрузить иллюстрацию {n} для {title}",
+      "shot.remove": "Удалить иллюстрацию {n}"
+    }
+  },
+  "en": {
+    "ui": {
+      "nav.projects": "Projects",
+      "nav.contact": "Contact",
+      "cta.projects": "View projects",
+      "cta.contact": "Get in touch",
+      "tools": "Tools:",
+      "footer": "Developing processes. Developing people.",
+      "theme": "Switch theme",
+      "lang": "Language",
+      "carousel.prev": "Previous image",
+      "carousel.next": "Next image",
+      "upload.hint": "Upload",
+      "upload.replace": "Replace",
+      "upload.fail": "Could not upload the image",
+      "delete.fail": "Could not remove the image",
+      "lightbox": "Enlarged illustration",
+      "close": "Close",
+      "shot.gallery": "Illustrations: {title}",
+      "shot.zoom": "Enlarge illustration {n}: {title}",
+      "shot.alt": "{title}, illustration {n}",
+      "shot.upload": "Upload illustration {n} for {title}",
+      "shot.remove": "Remove illustration {n}"
+    },
+    "author": {
+      "name": "Alexander Iabelov",
+      "role": "Fullstack Developer",
+      "tagline": "prompt engineering\nand code generation",
+      "subtitle": "Automation of routine operations, AI integrations, chatbots, and databases with analytics for business"
+    },
+    "projects": {
+      "5": {
+        "title": "Maintenance with TWI",
+        "description": "A scalable system for scheduled equipment maintenance. Using the manufacturer's information, AI models build a knowledge base, maintenance procedures, schedules and instructions, and a reference system. The resulting materials follow the TWI approach."
+      },
+      "2": {
+        "title": "Terminal Portfolio",
+        "description": "A portfolio in the form of an interactive terminal, with commands and autocomplete. A calling-card site organized as a dialogue with an AI model."
+      },
+      "4": {
+        "title": "Mini CRM for marketing",
+        "description": "A mini CRM for marketing and sales: lead capture from landing pages and social networks, automated email, chatbots, and analytics."
+      },
+      "3": {
+        "title": "GOVORUN",
+        "description": "An AI secretary and advisor with a modular architecture."
+      },
+      "1": {
+        "title": "Wise Owl",
+        "description": "A Telegram bot for everyday requests. Your personal advisor, secretary, and business assistant."
+      }
+    }
+  },
+  "fr": {
+    "ui": {
+      "nav.projects": "Projets",
+      "nav.contact": "Contacts",
+      "cta.projects": "Voir les projets",
+      "cta.contact": "Me contacter",
+      "tools": "Outils :",
+      "footer": "Développer les processus. Développer les personnes.",
+      "theme": "Changer le thème",
+      "lang": "Langue",
+      "carousel.prev": "Image précédente",
+      "carousel.next": "Image suivante",
+      "upload.hint": "Importer",
+      "upload.replace": "Remplacer",
+      "upload.fail": "Impossible d'importer l'image",
+      "delete.fail": "Impossible de supprimer l'image",
+      "lightbox": "Illustration agrandie",
+      "close": "Fermer",
+      "shot.gallery": "Illustrations : {title}",
+      "shot.zoom": "Agrandir l'illustration {n} : {title}",
+      "shot.alt": "{title}, illustration {n}",
+      "shot.upload": "Importer l'illustration {n} pour {title}",
+      "shot.remove": "Supprimer l'illustration {n}"
+    },
+    "author": {
+      "name": "Alexandre Iabelov",
+      "role": "Développeur fullstack",
+      "tagline": "ingénierie de prompts\net génération de code",
+      "subtitle": "Automatisation des tâches courantes, intégrations d'IA, chatbots, bases de données et analytique pour l'entreprise"
+    },
+    "projects": {
+      "5": {
+        "title": "Maintenance avec TWI",
+        "description": "Système évolutif de maintenance périodique des équipements. À partir des informations du fabricant, des modèles d'IA produisent une base de connaissances, des documents de maintenance, des plannings, des instructions et un système de référence. Les documents générés respectent l'approche TWI."
+      },
+      "2": {
+        "title": "Portfolio terminal",
+        "description": "Portfolio sous forme de terminal interactif, avec commandes et autocomplétion. Site-vitrine organisé comme un dialogue avec un modèle d'IA."
+      },
+      "4": {
+        "title": "Mini-CRM pour le marketing",
+        "description": "Mini-CRM pour le marketing et les ventes : collecte de prospects depuis les pages d'atterrissage et les réseaux sociaux, automatisation des e-mails, chatbots et analytique."
+      },
+      "3": {
+        "title": "GOVORUN",
+        "description": "Secrétaire et conseiller IA à architecture modulaire."
+      },
+      "1": {
+        "title": "Hibou sage",
+        "description": "Bot Telegram pour les demandes du quotidien. Votre conseiller, secrétaire et assistant business personnel."
+      }
+    }
+  }
+}

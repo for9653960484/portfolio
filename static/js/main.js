@@ -4,6 +4,9 @@
  */
 
 const THEME_KEY = "portfolio-theme";
+const LANG_KEY = "portfolio-lang";
+const LANGS = ["ru", "en", "fr"];
+const I18N = JSON.parse(document.getElementById("site-i18n")?.textContent || "{}");
 
 function getTheme() {
   return localStorage.getItem(THEME_KEY) || (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
@@ -14,12 +17,106 @@ function setTheme(theme) {
   localStorage.setItem(THEME_KEY, theme);
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+function getLang() {
+  const saved = localStorage.getItem(LANG_KEY);
+  return LANGS.includes(saved) ? saved : "ru";
+}
+
+function uiText(lang, key) {
+  return I18N[lang]?.ui?.[key] || I18N.ru?.ui?.[key] || "";
+}
+
+function formatText(template, vars) {
+  return String(template).replace(/\{(\w+)\}/g, (_, name) => vars[name] ?? "");
+}
+
+function captureOriginals() {
+  document.querySelectorAll("[data-i18n^='author.']").forEach((el) => {
+    if (el.dataset.ruText == null) el.dataset.ruText = el.textContent;
+  });
+  document.querySelectorAll(".card").forEach((card) => {
+    if (card.dataset.titleRu != null) return;
+    const title = card.querySelector(".card-title a") || card.querySelector(".card-title");
+    card.dataset.titleRu = title?.textContent.trim() || "";
+    card.dataset.descRu = card.querySelector(".card-desc")?.textContent.trim() || "";
+  });
+}
+
+function projectCopy(card, lang) {
+  const id = card.dataset.projectId;
+  if (lang !== "ru") {
+    const translated = I18N[lang]?.projects?.[id];
+    if (translated?.title) return translated;
+  }
+  return { title: card.dataset.titleRu || "", description: card.dataset.descRu || "" };
+}
+
+function authorText(el, lang) {
+  const field = el.dataset.i18n.slice("author.".length);
+  if (lang !== "ru") {
+    const value = I18N[lang]?.author?.[field];
+    if (value) return value;
+  }
+  return el.dataset.ruText ?? el.textContent;
+}
+
+function applyLanguage(lang) {
+  if (!LANGS.includes(lang)) lang = "ru";
+  localStorage.setItem(LANG_KEY, lang);
+  document.documentElement.lang = lang;
+  document.documentElement.style.setProperty("--label-replace", `"${uiText(lang, "upload.replace")}"`);
+
+  document.querySelectorAll("[data-i18n]").forEach((el) => {
+    const key = el.dataset.i18n;
+    el.textContent = key.startsWith("author.") ? authorText(el, lang) : uiText(lang, key);
+  });
+
+  document.querySelectorAll(".card").forEach((card) => {
+    const copy = projectCopy(card, lang);
+    const title = card.querySelector(".card-title a") || card.querySelector(".card-title");
+    if (title) title.textContent = copy.title;
+    const desc = card.querySelector(".card-desc");
+    if (desc) desc.textContent = copy.description;
+
+    card.querySelectorAll("[data-i18n-aria], [data-i18n-alt]").forEach((el) => {
+      const key = el.dataset.i18nAria || el.dataset.i18nAlt;
+      const label = formatText(uiText(lang, key), { title: copy.title, n: el.dataset.i18nN || "" });
+      if (el.dataset.i18nAlt) el.alt = label;
+      else el.setAttribute("aria-label", label);
+    });
+  });
+
+  document.querySelectorAll("[data-i18n-aria]").forEach((el) => {
+    if (el.closest(".card")) return;
+    el.setAttribute("aria-label", uiText(lang, el.dataset.i18nAria));
+  });
+
+  document.querySelectorAll(".lang-switch-btn").forEach((button) => {
+    button.setAttribute("aria-pressed", button.dataset.lang === lang ? "true" : "false");
+  });
+
+  const role = document.querySelector("[data-i18n='author.role']")?.textContent.trim() || "";
+  const tagline = (document.querySelector("[data-i18n='author.tagline']")?.textContent || "").replace(/\s+/g, " ").trim();
+  if (role && tagline) document.title = `${role} — ${tagline}`;
+}
+
+captureOriginals();
+applyLanguage(getLang());
+
+let pageReady = false;
+
+function initPage() {
+  if (pageReady) return;
+  pageReady = true;
   setTheme(getTheme());
 
   document.getElementById("theme-toggle")?.addEventListener("click", () => {
     const current = getTheme();
     setTheme(current === "dark" ? "light" : "dark");
+  });
+
+  document.querySelectorAll(".lang-switch-btn").forEach((button) => {
+    button.addEventListener("click", () => applyLanguage(button.dataset.lang));
   });
 
   // Smooth scroll for anchor links
@@ -133,7 +230,10 @@ document.addEventListener("DOMContentLoaded", () => {
       lightboxImage.alt = "";
     }
   });
-});
+}
+
+if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", initPage);
+initPage();
 
 function shotFrame(shot) {
   return shot.querySelector(".card-shot") || shot;
@@ -170,7 +270,7 @@ async function uploadShot(shot, file) {
     });
     const data = await response.json().catch(() => ({}));
     if (!response.ok) {
-      throw new Error(data.error || "Не удалось загрузить изображение");
+      throw new Error(data.error || uiText(getLang(), "upload.fail"));
     }
     showShotImage(shot, `${data.url}?t=${Date.now()}`);
   } catch (error) {
@@ -192,7 +292,7 @@ async function deleteShot(shot) {
     });
     const data = await response.json().catch(() => ({}));
     if (!response.ok) {
-      throw new Error(data.error || "Не удалось удалить изображение");
+      throw new Error(data.error || uiText(getLang(), "delete.fail"));
     }
     clearShotImage(shot);
   } catch (error) {
@@ -210,17 +310,21 @@ function showShotImage(shot, url) {
     zoom = document.createElement("button");
     zoom.type = "button";
     zoom.className = "card-shot-zoom";
-    zoom.setAttribute("aria-label", "Увеличить иллюстрацию");
+    zoom.dataset.i18nAria = "shot.zoom";
+    zoom.dataset.i18nN = String(Number(shot.dataset.slot) + 1);
     frame.prepend(zoom);
   }
   let image = zoom.querySelector("img");
   if (!image) {
     image = document.createElement("img");
     image.alt = "";
+    image.dataset.i18nAlt = "shot.alt";
+    image.dataset.i18nN = zoom.dataset.i18nN;
     zoom.append(image);
   }
   image.src = url;
   frame.classList.add("has-image");
+  applyLanguage(getLang());
 }
 
 function clearShotImage(shot) {
@@ -231,6 +335,7 @@ function clearShotImage(shot) {
 
   const empty = document.createElement("div");
   empty.className = "card-shot-empty";
-  empty.innerHTML = '<span class="card-shot-plus" aria-hidden="true">+</span><span class="card-shot-hint">Загрузить</span>';
+  empty.innerHTML = '<span class="card-shot-plus" aria-hidden="true">+</span><span class="card-shot-hint" data-i18n="upload.hint"></span>';
   frame.prepend(empty);
+  applyLanguage(getLang());
 }

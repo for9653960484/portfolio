@@ -16,6 +16,7 @@ app.config["TEMPLATES_AUTO_RELOAD"] = True
 
 ROOT = Path(__file__).parent
 PROJECTS_PATH = ROOT / "projects.json"
+I18N_PATH = ROOT / "translations.json"
 STATIC_DIR = ROOT / "static"
 UPLOAD_DIR = STATIC_DIR / "uploads"
 MAX_IMAGE_BYTES = 8 * 1024 * 1024
@@ -26,6 +27,14 @@ _projects_lock = threading.Lock()
 def load_projects():
     """Load projects and author info from JSON."""
     with open(PROJECTS_PATH, encoding="utf-8") as f:
+        return json.load(f)
+
+
+def load_translations():
+    """English and French copy. Russian stays in the page and projects.json."""
+    if not I18N_PATH.exists():
+        return {}
+    with open(I18N_PATH, encoding="utf-8") as f:
         return json.load(f)
 
 
@@ -98,6 +107,7 @@ def index():
         author=data["author"],
         projects=projects,
         can_upload=can_upload(),
+        i18n=load_translations(),
     )
 
 
