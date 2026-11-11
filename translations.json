@@ -57,11 +57,11 @@
     "projects": {
       "5": {
         "title": "Maintenance with TWI",
-        "description": "A scalable system for scheduled equipment maintenance. Using the manufacturer's information, AI models build a knowledge base, maintenance procedures, schedules and instructions, and a reference system. The resulting materials follow the TWI approach."
+        "description": "A scalable system for scheduled equipment maintenance. Using the manufacturer's information, AI models build a knowledge base, maintenance procedures, schedules and instructions, and a reference system. The derived materials follow the TWI approach, which makes knowledge easier to store and pass on. Data exchange with 1C:TOiR is supported."
       },
       "2": {
         "title": "Terminal Portfolio",
-        "description": "A portfolio in the form of an interactive terminal, with commands and autocomplete. A calling-card site organized as a dialogue with an AI model."
+        "description": "A portfolio in the form of an interactive terminal, with commands and autocomplete. A calling-card site organized as a dialogue with an AI model, including illustration setup, a foreign-language version, and links to social networks."
       },
       "4": {
         "title": "Mini CRM for marketing",
@@ -69,11 +69,11 @@
       },
       "3": {
         "title": "GOVORUN",
-        "description": "An AI secretary and advisor with a modular architecture."
+        "description": "An AI secretary and advisor with a modular architecture. It keeps a personal calendar, including calendars from Google and other services, tracks progress on personal goals, and sets reminders. Personal services include the weather forecast, exchange rates and stock quotes, trip planning with expense tracking, and discussion of ideas and projects with a neural network while the conversation text is saved. Other users can be connected."
       },
       "1": {
         "title": "Wise Owl",
-        "description": "A Telegram bot for everyday requests. Your personal advisor, secretary, and business assistant."
+        "description": "A Telegram bot for everyday requests. A personal advisor, secretary, and business assistant."
       }
     }
   },
@@ -110,11 +110,11 @@
     "projects": {
       "5": {
         "title": "Maintenance avec TWI",
-        "description": "Système évolutif de maintenance périodique des équipements. À partir des informations du fabricant, des modèles d'IA produisent une base de connaissances, des documents de maintenance, des plannings, des instructions et un système de référence. Les documents générés respectent l'approche TWI."
+        "description": "Système évolutif de maintenance périodique des équipements. À partir des informations du fabricant, des modèles d'IA produisent une base de connaissances, des documents de maintenance, des plannings, des instructions et un système de référence. Les documents générés respectent l'approche TWI, ce qui simplifie le stockage et la transmission des connaissances. Un échange de données avec 1C:TOiR est possible."
       },
       "2": {
         "title": "Portfolio terminal",
-        "description": "Portfolio sous forme de terminal interactif, avec commandes et autocomplétion. Site-vitrine organisé comme un dialogue avec un modèle d'IA."
+        "description": "Portfolio sous forme de terminal interactif, avec commandes et autocomplétion. Site-vitrine organisé comme un dialogue avec un modèle d'IA, avec réglage des illustrations, version en langues étrangères et liaison avec les réseaux sociaux."
       },
       "4": {
         "title": "Mini-CRM pour le marketing",
@@ -122,11 +122,11 @@
       },
       "3": {
         "title": "GOVORUN",
-        "description": "Secrétaire et conseiller IA à architecture modulaire."
+        "description": "Secrétaire et conseiller IA à architecture modulaire. Gestion d'un calendrier personnel, y compris à partir du calendrier Google et d'autres services, suivi de l'avancement des objectifs personnels et configuration des rappels. Services personnels : prévisions météo, taux de change et cotations boursières, planification de voyages avec suivi des dépenses, et discussion d'idées et de projets avec un réseau neuronal en conservant le texte des échanges. D'autres utilisateurs peuvent être connectés."
       },
       "1": {
         "title": "Hibou sage",
-        "description": "Bot Telegram pour les demandes du quotidien. Votre conseiller, secrétaire et assistant business personnel."
+        "description": "Bot Telegram pour les demandes du quotidien. Conseiller personnel, secrétaire et assistant business."
       }
     }
   }
