@@ -48,11 +48,11 @@
     {
       "id": 1,
       "title": "Мудрый филин",
-      "description": "Telegram-бот для сопровождения повседневных запросов. Персональный советник, секретарь, бизнес-ассистент.",
+      "description": "Telegram-бот для сопровождения повседневных запросов. Персональный советник, секретарь, бизнес-ассистент: оцифровка и хранинее документов, проработка конкретных тем, фиксация идей. ",
       "tools": ["aiogram 3.x", "OpenAI", "ChromaDB"],
       "year": "2025",
       "link": "https://github.com/for9653960484/owl_memory_bot",
-      "images": [null, null, null]
+      "images": ["uploads/p1-s0.png", "uploads/p1-s1.png", "uploads/p1-s2.png"]
     }
   ]
 }

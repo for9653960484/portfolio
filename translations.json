@@ -73,7 +73,7 @@
       },
       "1": {
         "title": "Wise Owl",
-        "description": "A Telegram bot for everyday requests. A personal advisor, secretary, and business assistant."
+        "description": "A Telegram bot for everyday requests. A personal advisor, secretary, and business assistant: digitizing and storing documents, working through specific topics, and capturing ideas."
       }
     }
   },
@@ -126,7 +126,7 @@
       },
       "1": {
         "title": "Hibou sage",
-        "description": "Bot Telegram pour les demandes du quotidien. Conseiller personnel, secrétaire et assistant business."
+        "description": "Bot Telegram pour les demandes du quotidien. Conseiller personnel, secrétaire et assistant business : numérisation et conservation des documents, approfondissement de sujets précis et capture d'idées."
       }
     }
   }
