@@ -16,6 +16,7 @@
   --color-border: rgba(255, 255, 255, 0.12);
   --color-border-hover: rgba(255, 255, 255, 0.2);
   --color-shadow: rgba(0, 0, 0, 0.4);
+  --card-under: rgba(255, 255, 255, 0.32);
   --color-shot: rgba(255, 255, 255, 0.04);
   --color-shot-border: rgba(255, 255, 255, 0.42);
   --color-tools: #f5f5f7;
@@ -45,6 +46,7 @@
   --color-border: rgba(0, 0, 0, 0.1);
   --color-border-hover: rgba(0, 0, 0, 0.18);
   --color-shadow: rgba(0, 0, 0, 0.12);
+  --card-under: rgba(0, 0, 0, 0.62);
   --color-shot: rgba(0, 0, 0, 0.04);
   --color-shot-border: rgba(0, 0, 0, 0.55);
   --color-tools: #1d1d1f;
@@ -339,17 +341,35 @@ section {
 
 /* Cards */
 .card {
+  position: relative;
+  isolation: isolate;
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: var(--space-lg);
-  align-items: center;
+  align-items: start;
   background: var(--color-bg-card);
   border: 1px solid var(--color-border);
   border-radius: var(--radius);
   padding: 1rem 1.75rem;
-  transition: background var(--transition), border-color var(--transition), box-shadow var(--transition), transform var(--transition);
+  transition: background var(--transition), border-color var(--transition), box-shadow var(--transition), translate var(--transition);
   opacity: 0;
   animation: fadeUp 0.6s var(--transition) forwards;
+}
+
+.card::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: 12%;
+  right: 12%;
+  bottom: -1.6rem;
+  height: 3.2rem;
+  border-radius: 999px;
+  background: radial-gradient(ellipse at center, var(--card-under) 0%, transparent 72%);
+  opacity: 0;
+  filter: blur(6px);
+  pointer-events: none;
+  transition: opacity var(--transition);
 }
 
 .card:nth-child(1) { animation-delay: 0.05s; }
@@ -363,11 +383,17 @@ section {
 .card:nth-child(9) { animation-delay: 0.45s; }
 .card:nth-child(10) { animation-delay: 0.5s; }
 
-.card:hover {
+.card:hover,
+.card:focus-within {
   background: var(--color-bg-card-hover);
   border-color: var(--color-border-hover);
-  transform: translateY(-4px);
-  box-shadow: 0 20px 40px var(--color-shadow);
+  translate: 0 -4px;
+  box-shadow: 0 18px 22px -16px var(--card-under);
+}
+
+.card:hover::after,
+.card:focus-within::after {
+  opacity: 1;
 }
 
 .card-content {
@@ -645,12 +671,6 @@ section {
   margin-top: var(--space-sm);
   font-size: 0.85rem;
   color: #ff453a;
-}
-
-.card-year {
-  font-size: 0.75rem;
-  color: var(--color-text-muted);
-  margin-bottom: 0.1rem;
 }
 
 .card-title {

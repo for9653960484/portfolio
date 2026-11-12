@@ -52,7 +52,6 @@
                 {% for project in projects %}
                 <article class="card" data-project-id="{{ project.id }}">
                     <div class="card-content">
-                        <span class="card-year">{{ project.year }}</span>
                         <h3 class="card-title">
                             {% if project.link %}
                             <a href="{{ project.link }}" target="_blank" rel="noopener">{{ project.title }}</a>
